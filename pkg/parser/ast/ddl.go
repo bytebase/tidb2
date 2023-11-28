@@ -2670,7 +2670,6 @@ func (n *TableOption) Restore(ctx *format.RestoreCtx) error {
 			ctx.WritePlain(" = (")
 		}
 
-		ctx.WritePlain("= (")
 		for i, tableName := range n.TableNames {
 			if i != 0 {
 				ctx.WritePlain(",")
