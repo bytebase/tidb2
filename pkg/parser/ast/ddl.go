@@ -2508,8 +2508,12 @@ func (n *TableOption) Restore(ctx *format.RestoreCtx) error {
 			return nil
 		})
 	case TableOptionComment:
-		ctx.WriteKeyWord("COMMENT ")
-		ctx.WritePlain("= ")
+		ctx.WriteKeyWord("COMMENT")
+		if ctx.Flags.HasPrettyFormatFlag() {
+			ctx.WritePlain("=")
+		} else {
+			ctx.WritePlain(" = ")
+		}
 		ctx.WriteString(n.StrValue)
 	case TableOptionAvgRowLength:
 		ctx.WriteKeyWord("AVG_ROW_LENGTH ")
