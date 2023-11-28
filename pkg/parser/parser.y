@@ -1555,6 +1555,7 @@ import (
 	UnReservedKeyword               "MySQL unreserved keywords"
 	TiDBKeyword                     "TiDB added keywords"
 	FunctionNameConflict            "Built-in function call names which are conflict with keywords"
+	FunctionNameConflictExceptNow   "Built-in function call names which are conflict with keywords except NOW"
 	FunctionNameOptionalBraces      "Function with optional braces, all of them are reserved keywords."
 	FunctionNameDatetimePrecision   "Function with optional datetime precision, all of them are reserved keywords."
 	FunctionNameDateArith           "Date arith function call names (date_add or date_sub)"
@@ -3939,6 +3940,10 @@ BuiltinFunction:
 	'(' BuiltinFunction ')'
 	{
 		$$ = $2.(*ast.FuncCallExpr)
+	}
+|	FunctionNameConflictExceptNow '(' ExpressionListOpt ')'
+	{
+		$$ = &ast.FuncCallExpr{FnName: model.NewCIStr($1), Args: $3.([]ast.ExprNode)}
 	}
 |	identifier '(' ')'
 	{
@@ -7876,6 +7881,36 @@ FunctionNameConflict:
 |	"MONTH"
 |	builtinNow
 |	"POINT"
+|	"QUARTER"
+|	"REPEAT"
+|	"REPLACE"
+|	"REVERSE"
+|	"RIGHT"
+|	"ROW_COUNT"
+|	"SECOND"
+|	"TIME"
+|	"TIMESTAMP"
+|	"TRUNCATE"
+|	"USER"
+|	"WEEK"
+|	"YEAR"
+
+FunctionNameConflictExceptNow:
+	"ASCII"
+|	"CHARSET"
+|	"COALESCE"
+|	"COLLATION"
+|	"DATE"
+|	"DATABASE"
+|	"DAY"
+|	"HOUR"
+|	"IF"
+|	"INTERVAL"
+|	"FORMAT"
+|	"LEFT"
+|	"MICROSECOND"
+|	"MINUTE"
+|	"MONTH"
 |	"QUARTER"
 |	"REPEAT"
 |	"REPLACE"
