@@ -413,7 +413,6 @@ var prettyKeywords = map[string]bool{
 	"AUTO_INCREMENT ":       true,
 	"AUTO_ID_CACHE ":        true,
 	"AUTO_RANDOM_BASE ":     true,
-	"COMMENT ":              true,
 	"AVG_ROW_LENGTH ":       true,
 	"CHECKSUM ":             true,
 	"COMPRESSION ":          true,
