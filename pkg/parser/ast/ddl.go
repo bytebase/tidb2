@@ -1131,6 +1131,9 @@ func (n *CreateTableStmt) Restore(ctx *format.RestoreCtx) error {
 
 	options := tableOptionsWithRestoreTTLFlag(ctx.Flags, n.Options)
 	for i, option := range options {
+		if ctx.Flags.HasRestoreCreateTableWithoutDefaultOptionFlag() && option.IsDefaultOption() {
+			continue
+		}
 		ctx.WritePlain(" ")
 		if err := option.Restore(ctx); err != nil {
 			return errors.Annotatef(err, "An error occurred while splicing CreateTableStmt TableOption: [%v]", i)
@@ -2422,6 +2425,19 @@ type TableOption struct {
 	Value         ValueExpr
 	TableNames    []*TableName
 	ColumnName    *ColumnName
+}
+
+func (n *TableOption) IsDefaultOption() bool {
+	switch n.Tp {
+	case TableOptionEngine:
+		return n.StrValue == "InnoDB"
+	case TableOptionCharset:
+		return n.UintValue == TableOptionCharsetWithoutConvertTo && n.StrValue == "utf8mb4"
+	case TableOptionCollate:
+		return n.StrValue == "utf8mb4_general_ci"
+	default:
+		return false
+	}
 }
 
 func (n *TableOption) Restore(ctx *format.RestoreCtx) error {
