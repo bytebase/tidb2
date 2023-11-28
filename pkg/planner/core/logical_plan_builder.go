@@ -7408,6 +7408,12 @@ func (u *updatableTableListResolver) Leave(inNode ast.Node) (ast.Node, bool) {
 	return inNode, true
 }
 
+// ExtractTableList extracts all the TableNames from node.
+// Tag: no-upstream.
+func ExtractTableList(node ast.Node, input []*ast.TableName, asName bool) []*ast.TableName {
+	return extractTableList(node, input, asName)
+}
+
 // extractTableList extracts all the TableNames from node.
 // If asName is true, extract AsName prior to OrigName.
 // Privilege check should use OrigName, while expression may use AsName.
