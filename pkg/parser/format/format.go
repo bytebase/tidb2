@@ -242,6 +242,8 @@ const (
 
 	// RestorePrettyFormat is used to pretty print the CREATE TABLE statement and CREATE VIEW statement.
 	RestorePrettyFormat
+	// RestoreCreateTableWithoutDefaultOption is used to restore CREATE TABLE without default options.
+	RestoreCreateTableWithoutDefaultOption
 )
 
 const (
@@ -354,6 +356,10 @@ func (rf RestoreFlags) HasRestoreForNonPrepPlanCache() bool {
 
 func (rf RestoreFlags) HasPrettyFormatFlag() bool {
 	return rf.has(RestorePrettyFormat)
+}
+
+func (rf RestoreFlags) HasRestoreCreateTableWithoutDefaultOptionFlag() bool {
+	return rf.has(RestoreCreateTableWithoutDefaultOption)
 }
 
 // RestoreWriter is the interface for `Restore` to write.
