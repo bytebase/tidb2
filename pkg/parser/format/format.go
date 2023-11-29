@@ -529,9 +529,9 @@ func (ctx *RestoreCtx) WriteName(name string) {
 func (ctx *RestoreCtx) WritePlain(plainText string) {
 	if plainText == "= " {
 		if ctx.Flags.HasPrettyFormatFlag() {
-			ctx.WritePlain("=")
+			ctx.In.WriteString("=")
 		} else {
-			ctx.WritePlain("= ")
+			ctx.In.WriteString("= ")
 		}
 	} else {
 		ctx.In.WriteString(plainText)
