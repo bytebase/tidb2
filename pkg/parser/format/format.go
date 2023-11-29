@@ -531,7 +531,7 @@ func (ctx *RestoreCtx) WritePlain(plainText string) {
 		if ctx.Flags.HasPrettyFormatFlag() {
 			ctx.WritePlain("=")
 		} else {
-			ctx.WritePlain(" = ")
+			ctx.WritePlain("= ")
 		}
 	} else {
 		ctx.In.WriteString(plainText)
